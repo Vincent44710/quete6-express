@@ -2,7 +2,7 @@ const { hashPassword } = require("./auth");
 const database = require("./database");
 
 const getUsers = (req, res) => {
-  const initialSql = "select * from users";
+  const initialSql = "select firstname, lastname, email, city, langage from users";
   const where = [];
 
   if (req.query.language != null) {
@@ -41,7 +41,7 @@ const getUsers = (req, res) => {
 const getUserById = (req, res) => {
   const id = parseInt(req.params.id);
   database
-    .query("select * from users where id = ?", [id])
+    .query("select id, firtname, lastname, email, city, langage from users where id = ?", [id])
     .then(([users]) => {
       if (users.length === 0) {
         res.status(404).send("Not found");
